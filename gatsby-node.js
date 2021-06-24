@@ -14,7 +14,6 @@ exports.createPages = ({ graphql, actions }) => {
               edges {
                 node {
                   id
-                  slugs
                 }
               }
             }
@@ -29,7 +28,7 @@ exports.createPages = ({ graphql, actions }) => {
         const posts = result.data.allPrismicArticle.edges
         posts.forEach((post, index) => {
           createPage({
-            path: `/blog/${post.node.slugs[0]}/`,
+            path: `/blog/${post.node.id}/`,
             component: blogPost,
             context: {
               slug: post.node.id,
