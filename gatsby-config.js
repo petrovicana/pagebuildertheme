@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -5,6 +9,7 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    `gatsby-plugin-sass`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {
@@ -29,6 +34,16 @@ module.exports = {
       },
     },
     `gatsby-plugin-gatsby-cloud`,
+    {
+      resolve: `gatsby-source-prismic`,
+      options: {
+        repositoryName: `PageBuilder`,
+        accessToken: `MC5ZTlNHU0JJQUFDOEFjNjlw.77-977-9TTXvv70SFu-_ve-_ve-_ve-_ve-_ve-_ve-_vUvvv73vv73vv73vv71Ob13vv70Z77-9MlU577-9NO-_ve-_vQ`,
+        schemas: {
+          article: require("./src/custom_types/article.json"),
+        },
+      },
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
