@@ -2,6 +2,32 @@ require('dotenv').config({
   path: `.env`,
 })
 
+const {
+  prismicRepo,
+  releaseID,
+  accessToken,
+} = require('./prismic-configuration')
+
+const reponame = process.env.PRISMIC_REPO_NAME || prismicRepo
+const apiKey = process.env.PRISMIC_API_KEY || accessToken
+const prismicReleaseID = process.env.PRISMIC_RELEASE_ID || releaseID
+
+const articleSchema = require("./src/custom_types/article.json")
+
+const gastbySourcePrismicConfig = {
+  resolve: 'gatsby-source-prismic',
+  options: {
+    repositoryName: reponame,
+    accessToken: apiKey,
+    releaseID: prismicReleaseID,
+    prismicToolbar: true,
+    linkResolver: () => (doc) => linkResolver(doc),
+    schemas: {
+      article: articleSchema
+    },
+  },
+}
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -9,6 +35,7 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    gastbySourcePrismicConfig,
     `gatsby-plugin-sass`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
@@ -31,17 +58,6 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
-    },
-    `gatsby-plugin-gatsby-cloud`,
-    {
-      resolve: `gatsby-source-prismic`,
-      options: {
-        repositoryName: `PageBuilder`,
-        accessToken: `MC5ZTlNHU0JJQUFDOEFjNjlw.77-977-9TTXvv70SFu-_ve-_ve-_ve-_ve-_ve-_ve-_vUvvv73vv73vv73vv71Ob13vv70Z77-9MlU577-9NO-_ve-_vQ`,
-        schemas: {
-          article: require("./src/custom_types/article.json"),
-        },
       },
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality
