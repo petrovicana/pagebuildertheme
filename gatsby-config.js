@@ -12,7 +12,7 @@ const reponame = process.env.PRISMIC_REPO_NAME || prismicRepo
 const apiKey = process.env.PRISMIC_API_KEY || accessToken
 const prismicReleaseID = process.env.PRISMIC_RELEASE_ID || releaseID
 
-const articleSchema = require("./src/custom_types/article.json")
+const articleSchema = require("./custom_types/article.json")
 
 const gastbySourcePrismicConfig = {
   resolve: 'gatsby-source-prismic',
